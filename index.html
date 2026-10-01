@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interaktiv Kosmos va Sayyoralar</title>
+    <style>
+        /* Umumiy sozlamalar va Kosmik Fon */
+        body {
+            margin: 0;
+            padding: 0;
+            background: radial-gradient(circle, #0c102b 0%, #02040f 100%);
+            color: #ffffff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        header {
+            text-align: center;
+            margin-top: 20px;
+            z-index: 10;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            text-shadow: 0 0 15px #4f46e5;
+            margin-bottom: 5px;
+        }
+
+        p {
+            color: #a5b4fc;
+        }
+
+        /* 3D Quyosh Tizimi Maydoni */
+        .universe {
+            position: relative;
+            width: 500px;
+            height: 500px;
+            margin: 40px auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Quyosh */
+        .sun {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            background: radial-gradient(circle, #ffea00 0%, #ff6a00 100%);
+            border-radius: 50%;
+            box-shadow: 0 0 50px #ff6a00;
+            z-index: 5;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        .sun:hover {
+            transform: scale(1.1);
+        }
+
+        /* Orbitalar chiziqlari */
+        .orbit {
+            position: absolute;
+            border: 1px dashed rgba(255, 255, 255, 0.15);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Sayyoralar umumiy stillari */
+        .planet {
+            position: absolute;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .planet:hover {
+            transform: scale(1.3);
+            box-shadow: 0 0 15px rgba(255,255,255,0.8);
+        }
+
+        /* 1. YER ORBITASI VA O'ZI */
+        .earth-orbit {
+            width: 200px;
+            height: 200px;
+            animation: spin 12s linear infinite;
+        }
+        .earth {
+            width: 25px;
+            height: 25px;
+            background: radial-gradient(circle, #00bfff, #0040ff);
+            box-shadow: 0 0 10px #00bfff;
+            top: -12.5px;
+        }
+
+        /* 2. MARS ORBITASI VA O'ZI */
+        .mars-orbit {
+            width: 320px;
+            height: 320px;
+            animation: spin 20s linear infinite;
+        }
+        .mars {
+            width: 20px;
+            height: 20px;
+            background: radial-gradient(circle, #ff6b6b, #c92a2a);
+            box-shadow: 0 0 10px #ff6b6b;
+            top: -10px;
+        }
+
+        /* 3. YUPITER ORBITASI VA O'ZI */
+        .jupiter-orbit {
+            width: 440px;
+            height: 440px;
+            animation: spin 35s linear infinite;
+        }
+        .jupiter {
+            width: 40px;
+            height: 40px;
+            background: radial-gradient(circle, #d7a15c, #8d5b28);
+            box-shadow: 0 0 15px #d7a15c;
+            top: -20px;
+        }
+
+        /* Aylanish Animatsiyasi */
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* Interaktiv Blok va Tugmalar */
+        .control-panel {
+            text-align: center;
+            margin-top: 20px;
+            z-index: 10;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #4f46e5 0%, #3b82f6 100%);
+            border: none;
+            color: white;
+            padding: 12px 24px;
+            font-size: 1rem;
+            border-radius: 30px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.6);
+        }
+
+        /* Faktlar uchun Oyna */
+        .fact-box {
+            margin-top: 25px;
+            max-width: 400px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 15px 25px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>🌌 Interaktiv Koinot Olami</h1>
+        <p>Sayyoralarni bosing yoki ularning aylanishini tomosha qiling</p>
+    </header>
+
+    <!-- Quyosh tizimi maydoni -->
+    <div class="universe">
+        <!-- Quyosh -->
+        <div class="sun" onclick="showFact('Quyosh')"></div>
+
+        <!-- Yer Orbitasi -->
+        <div class="orbit earth-orbit">
+            <div class="planet earth" onclick="showFact('Yer')"></div>
+        </div>
+
+        <!-- Mars Orbitasi -->
+        <div class="orbit mars-orbit">
+            <div class="planet mars" onclick="showFact('Mars')"></div>
+        </div>
+
+        <!-- Yupiter Orbitasi -->
+        <div class="orbit jupiter-orbit">
+            <div class="planet jupiter" onclick="showFact('Yupiter')"></div>
+        </div>
+    </div>
+
+    <!-- Boshqaruv va Ma'lumot paneli -->
+    <div class="control-panel">
+        <button class="btn" onclick="randomFact()">Tasodifiy kosmik fakt</button>
+        <div class="fact-box">
+            <h3 id="fact-title">Kosmik Tadqiqot</h3>
+            <p id="fact-text">Sayyoralardan birini tanlang yoki yuqoridagi tugmani bosing!</p>
+        </div>
+    </div>
+
+    <script>
+        // Sayyoralar haqidagi ma'lumotlar bazasi
+        const spaceData = {
+            "Quyosh": "Quyosh tizimidagi umumiy massaning 99.86% qismini tashkil qiladi. U ulkan qizigan plazma sharidir.",
+            "Yer": "Biz yashab turgan Yer sayyorasi Quyosh tizimida suyuq holatdagi suv va hayot mavjud bo'lgan yagona ma'lum osmon jismidir.",
+            "Mars": "Mars 'Qizil sayyora' deb ham ataladi, chunki uning yuzasi temir oksidi (zang) bilan qoplangan. Bu yerda Quyosh tizimidagi eng baland Olimp vulqoni bor.",
+            "Yupiter": "Yupiter Quyosh tizimidagi eng ulkan sayyoradir. U shunchalik kattaki, ichiga qolgan barcha sayyoralarni bemalol joylashtirsa bo'ladi."
+        };
+
+        const randomFacts = [
+            "Kosmos butkul jimjitlikdan iborat, chunki u yerda tovush to'lqinlari tarqalishi uchun havo (muhit) yo'q.",
+            "Neytron yulduzining bir choy qoshiqcha keladigan bo'lagi Yerdagi barcha odamlarning umumiy vaznidan ham og'irroq bo'ladi.",
+            "Kosmosdagi eng uzoq inson qo'li tekkan apparat bu - Voyager 1 sun'iy yo'ldoshidir.",
+            "Venera sayyorasida bir kun uning bir yilidan uzoqroq davom etadi."
+        ];
+
+        // Sayyora bosilganda ishlaydigan funksiya
+        function showFact(planetName) {
+            document.getElementById('fact-title').innerText = planetName;
+            document.getElementById('fact-text').innerText = spaceData[planetName];
+        }
+
+        // Tasodifiy fakt tugmasi funksiyasi
+        function randomFact() {
+            const randomIndex = Math.floor(Math.random() * randomFacts.length);
+            document.getElementById('fact-title').innerText = "Qiziqarli Fakt";
+            document.getElementById('fact-text').innerText = randomFacts[randomIndex];
+        }
+    </script>
+</body>
+</html>
